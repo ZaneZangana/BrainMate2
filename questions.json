@@ -1,0 +1,1324 @@
+{
+  "Science": {
+    "easy": [
+      {
+        "question": "What is the elemental symbol for mercury?",
+        "options": [
+          "Mc",
+          "Hg",
+          "Hy",
+          "Me"
+        ],
+        "answer": "Hg",
+        "explanation": ""
+      },
+      {
+        "question": "What is the official name of the star located closest to the North Celestial Pole?",
+        "options": [
+          "Gamma Cephei",
+          "Eridanus",
+          "Polaris",
+          "Iota Cephei"
+        ],
+        "answer": "Polaris",
+        "explanation": ""
+      },
+      {
+        "question": "What does DNA stand for?",
+        "options": [
+          "Detoxic Acid",
+          "Deoxyribogenetic Atoms",
+          "Deoxyribogenetic Acid",
+          "Deoxyribonucleic Acid"
+        ],
+        "answer": "Deoxyribonucleic Acid",
+        "explanation": ""
+      },
+      {
+        "question": "Which is the most abundant element in the universe?",
+        "options": [
+          "Lithium",
+          "Hydrogen",
+          "Helium",
+          "Oxygen"
+        ],
+        "answer": "Hydrogen",
+        "explanation": ""
+      },
+      {
+        "question": "What is the powerhouse of the cell?",
+        "options": [
+          "Ribosome",
+          "Redbull",
+          "Nucleus",
+          "Mitochondria"
+        ],
+        "answer": "Mitochondria",
+        "explanation": ""
+      },
+      {
+        "question": "Which element has the highest melting point?",
+        "options": [
+          "Carbon",
+          "Platinum",
+          "Tungsten",
+          "Osmium"
+        ],
+        "answer": "Carbon",
+        "explanation": ""
+      },
+      {
+        "question": "What is the first element on the periodic table?",
+        "options": [
+          "Oxygen",
+          "Helium",
+          "Lithium",
+          "Hydrogen"
+        ],
+        "answer": "Hydrogen",
+        "explanation": ""
+      },
+      {
+        "question": "What is the unit of electrical resistance?",
+        "options": [
+          "Joule",
+          "Mho",
+          "Tesla",
+          "Ohm"
+        ],
+        "answer": "Ohm",
+        "explanation": ""
+      },
+      {
+        "question": "What is the chemical makeup of water?",
+        "options": [
+          "C12H6O2",
+          "H",
+          "CO2",
+          "H20"
+        ],
+        "answer": "H20",
+        "explanation": ""
+      },
+      {
+        "question": "Who discovered the Law of Gravity?",
+        "options": [
+          "Sir Isaac Newton",
+          "Charles Darwin",
+          "Galileo Galilei",
+          "Albert Einstein"
+        ],
+        "answer": "Sir Isaac Newton",
+        "explanation": ""
+      }
+    ],
+    "medium": [
+      {
+        "question": "The &quot;Gympie Stinger&quot; is the deadliest plant in the world.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "What is radiation measured in?",
+        "options": [
+          "Watt",
+          "Decibel",
+          "Kelvin",
+          "Gray "
+        ],
+        "answer": "Gray ",
+        "explanation": ""
+      },
+      {
+        "question": "Approximately what percentage of Earth&#039;s atmosphere is Oxygen?",
+        "options": [
+          "7%",
+          "21%",
+          "78%",
+          "54%"
+        ],
+        "answer": "21%",
+        "explanation": ""
+      },
+      {
+        "question": "All the following metal elements are liquids at or near room temperature EXCEPT:",
+        "options": [
+          "Gallium",
+          "Beryllium",
+          "Caesium",
+          "Mercury"
+        ],
+        "answer": "Beryllium",
+        "explanation": ""
+      },
+      {
+        "question": "What is the scientific term for &#039;taste&#039;?",
+        "options": [
+          "Auditory Perception",
+          "Somatosensation",
+          "Olfaction",
+          "Gustatory Perception"
+        ],
+        "answer": "Gustatory Perception",
+        "explanation": ""
+      },
+      {
+        "question": "Type 1 diabetes is a result of the liver working improperly.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "When was the first mammal successfully cloned?",
+        "options": [
+          "1996",
+          "1985",
+          "1999",
+          "2009"
+        ],
+        "answer": "1996",
+        "explanation": ""
+      },
+      {
+        "question": "Which desert is the only desert in the world where the &quot;Saguaro&quot; cactus grows indigenously?",
+        "options": [
+          "The Gobi Desert",
+          "The Yuma Desert",
+          "The Sonoran Desert",
+          "The Arabian Desert"
+        ],
+        "answer": "The Sonoran Desert",
+        "explanation": ""
+      },
+      {
+        "question": "What stage of development do the majority of eukaryotic cells remain in for most of their life?",
+        "options": [
+          "Prophase",
+          "Stasis",
+          "Telophase",
+          "Interphase"
+        ],
+        "answer": "Interphase",
+        "explanation": ""
+      },
+      {
+        "question": "Which of these elements on the Periodic Table is a Noble Gas?",
+        "options": [
+          "Potassium",
+          "Iodine",
+          "Colbalt",
+          "Neon"
+        ],
+        "answer": "Neon",
+        "explanation": ""
+      }
+    ],
+    "hard": [
+      {
+        "question": "The Western Lowland Gorilla is scientifically know as?",
+        "options": [
+          "Gorilla Beringei Beringei",
+          "Gorilla Beringei Graueri",
+          "Gorilla Gorilla Gorilla",
+          "Gorilla Gorilla Diehli"
+        ],
+        "answer": "Gorilla Gorilla Gorilla",
+        "explanation": ""
+      },
+      {
+        "question": "What is the same in Celsius and Fahrenheit?",
+        "options": [
+          "32",
+          "-39",
+          "-42",
+          "-40"
+        ],
+        "answer": "-40",
+        "explanation": ""
+      },
+      {
+        "question": "A comet&#039;s gaseous envelope (which creates the tail) is called what?",
+        "options": [
+          "The backwash",
+          "The wake",
+          "The ablative",
+          "The coma"
+        ],
+        "answer": "The coma",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following is NOT a word used to describe an earthquake?",
+        "options": [
+          "Foreshock",
+          "Strike-slip",
+          "Temblor",
+          "Drop-slide"
+        ],
+        "answer": "Drop-slide",
+        "explanation": ""
+      },
+      {
+        "question": "How many objects are equivalent to one mole?",
+        "options": [
+          "6.002 x 10^22",
+          "6.022 x 10^22",
+          "6.002 x 10^23",
+          "6.022 x 10^23"
+        ],
+        "answer": "6.022 x 10^23",
+        "explanation": ""
+      },
+      {
+        "question": "An organic compound is considered an alcohol if it has what functional group?",
+        "options": [
+          "Carbonyl",
+          "Alkyl",
+          "Aldehyde",
+          "Hydroxyl"
+        ],
+        "answer": "Hydroxyl",
+        "explanation": ""
+      },
+      {
+        "question": "Autosomal-dominant Compelling Helio-Ophthalmic Outburst syndrome is the need to do what when seeing the Sun?",
+        "options": [
+          "Hiccup",
+          "Yawn",
+          "Cough",
+          "Sneeze"
+        ],
+        "answer": "Sneeze",
+        "explanation": ""
+      },
+      {
+        "question": "What is the scientific name for the extinct hominin known as &quot;Lucy&quot;?",
+        "options": [
+          "Australopithecus Africanus",
+          "Australopithecus Architeuthis",
+          "Australopithecus Antaris",
+          "Australopithecus Afarensis"
+        ],
+        "answer": "Australopithecus Afarensis",
+        "explanation": ""
+      },
+      {
+        "question": "Which horizon in a soil profile consists of bedrock?",
+        "options": [
+          "B",
+          "O",
+          "D",
+          "R"
+        ],
+        "answer": "R",
+        "explanation": ""
+      },
+      {
+        "question": "The &#039;Islets of Langerhans&#039; is found in which human organ?",
+        "options": [
+          "Brain",
+          "Kidney",
+          "Liver",
+          "Pancreas"
+        ],
+        "answer": "Pancreas",
+        "explanation": ""
+      }
+    ]
+  },
+  "History": {
+    "easy": [
+      {
+        "question": "Who was among those killed in the 2010 Smolensk, Russia plane crash tragedy?",
+        "options": [
+          "Pope John Paul II",
+          "Bang-Ding Ow",
+          "Albert Putin",
+          "The Polish President"
+        ],
+        "answer": "The Polish President",
+        "explanation": ""
+      },
+      {
+        "question": "Adolf Hitler was tried at the Nuremberg trials.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "The Cold War ended with Joseph Stalin&#039;s death.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "Adolf Hitler was a german soldier in World War I.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following ancient peoples was NOT classified as Hellenic (Greek)?",
+        "options": [
+          "Dorians",
+          "Illyrians",
+          "Achaeans",
+          "Ionians"
+        ],
+        "answer": "Illyrians",
+        "explanation": ""
+      },
+      {
+        "question": "In World War ll, Great Britian used inflatable tanks on the ports of Great Britain to divert Hitler away from Normandy/D-day landing.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "Who discovered Penicillin?",
+        "options": [
+          "Marie Curie",
+          "Alfred Nobel",
+          "Louis Pasteur",
+          "Alexander Flemming"
+        ],
+        "answer": "Alexander Flemming",
+        "explanation": ""
+      },
+      {
+        "question": "Who was the first American in space?",
+        "options": [
+          "John Glenn",
+          "Neil Armstrong",
+          "Jim Lovell",
+          "Alan Shephard"
+        ],
+        "answer": "Alan Shephard",
+        "explanation": ""
+      },
+      {
+        "question": "What was the name commonly given to the ancient trade routes that connected the East and West of Eurasia?",
+        "options": [
+          "Spice Road",
+          "Silk Road",
+          "Clay Road",
+          "Salt Road"
+        ],
+        "answer": "Silk Road",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following countries was not an axis power during World War II?",
+        "options": [
+          "Japan",
+          "Germany",
+          "Italy",
+          " Soviet Union"
+        ],
+        "answer": " Soviet Union",
+        "explanation": ""
+      }
+    ],
+    "medium": [
+      {
+        "question": "When did construction of the Suez Canal finish?",
+        "options": [
+          "1850",
+          "1869",
+          "1860",
+          "1859"
+        ],
+        "answer": "1869",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following Assyrian kings did NOT rule during the Neo-Assyrian Empire?",
+        "options": [
+          "Shalmaneser V",
+          "Shamshi-Adad III",
+          "Esharhaddon",
+          "Ashur-nasir-pal II"
+        ],
+        "answer": "Shamshi-Adad III",
+        "explanation": ""
+      },
+      {
+        "question": "In World War I, what was the name of the alliance of Germany, Austria-Hungary, the Ottoman Empire, and Bulgaria?",
+        "options": [
+          "The Federation of Empires",
+          "Authoritarian Alliance",
+          "The Axis Powers",
+          "The Central Powers"
+        ],
+        "answer": "The Central Powers",
+        "explanation": ""
+      },
+      {
+        "question": "When was the Grand Patriotic War in the USSR concluded?",
+        "options": [
+          "August 9th, 1945",
+          "May 9th, 1945",
+          "December 11th, 1945",
+          "September 2nd, 1945"
+        ],
+        "answer": "May 9th, 1945",
+        "explanation": ""
+      },
+      {
+        "question": "In what year did the North American Video Game Crash occur?",
+        "options": [
+          "1982",
+          "1993",
+          "1970",
+          "1983"
+        ],
+        "answer": "1983",
+        "explanation": ""
+      },
+      {
+        "question": "How old was Lyndon B. Johnson when he assumed the role of President of the United States?",
+        "options": [
+          "50",
+          "60",
+          "55",
+          "54"
+        ],
+        "answer": "55",
+        "explanation": ""
+      },
+      {
+        "question": "The minigun was designed in 1960 by which manufacturer.",
+        "options": [
+          "Sig Sauer",
+          "General Electric",
+          "Heckler &amp; Koch",
+          "Colt Firearms"
+        ],
+        "answer": "General Electric",
+        "explanation": ""
+      },
+      {
+        "question": "The fraudelent doctor John R. Brinkley acummulated great fame and wealth in the early 1900s offering what service?",
+        "options": [
+          "Turkey breast implants",
+          "Cow liver transplant",
+          "Goat testicles transplant",
+          "Pig blood transfusion"
+        ],
+        "answer": "Goat testicles transplant",
+        "explanation": ""
+      },
+      {
+        "question": "Who was the leader of the Communist Party of Yugoslavia ?",
+        "options": [
+          "Karadjordje Petrovic",
+          "Milos Obilic",
+          "Aleskandar Petrovic",
+          "Josip Broz Tito"
+        ],
+        "answer": "Josip Broz Tito",
+        "explanation": ""
+      },
+      {
+        "question": "Which Roman Emperor led the Roman Empire to reach its maximum territorial extent?",
+        "options": [
+          "Claudius",
+          "Trajan",
+          "Julius Caesar",
+          "Constantine the Great"
+        ],
+        "answer": "Trajan",
+        "explanation": ""
+      }
+    ],
+    "hard": [
+      {
+        "question": "What micro-state is considered to have the oldest constitution still in effect?",
+        "options": [
+          "Andorra",
+          "Monaco",
+          "Saint Kitts and Nevis",
+          "San Marino"
+        ],
+        "answer": "San Marino",
+        "explanation": ""
+      },
+      {
+        "question": "Who invented the &quot;Flying Shuttle&quot; in 1738; one of the key developments in the industrialization of weaving?",
+        "options": [
+          "John Kay",
+          "Richard Arkwright",
+          "James Hargreaves",
+          "John Deere"
+        ],
+        "answer": "John Kay",
+        "explanation": ""
+      },
+      {
+        "question": "When was the SS or Schutzstaffel established?",
+        "options": [
+          "September 1st, 1941",
+          "April 4th, 1925",
+          "March 8th, 1935",
+          "February 21st, 1926"
+        ],
+        "answer": "April 4th, 1925",
+        "explanation": ""
+      },
+      {
+        "question": "What was the name of the German offensive operation in October 1941 to take Moscow before winter?",
+        "options": [
+          "Operation Sunflower",
+          "Operation Barbarossa",
+          "Case Blue",
+          "Operation Typhoon"
+        ],
+        "answer": "Operation Typhoon",
+        "explanation": ""
+      },
+      {
+        "question": "On which day did ARPANET suffer a 4 hour long network crash?",
+        "options": [
+          "October 27, 1980",
+          "October 29, 1969",
+          "November 21, 1969",
+          "December 9, 1991"
+        ],
+        "answer": "October 27, 1980",
+        "explanation": ""
+      },
+      {
+        "question": "What year was Canada founded in?",
+        "options": [
+          "1798",
+          "1867",
+          "1859",
+          "1668"
+        ],
+        "answer": "1867",
+        "explanation": ""
+      },
+      {
+        "question": "Japan was part of the Allied Powers during World War I.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "What was the name of the spy ring that helped the United States win the Revolutionary War?",
+        "options": [
+          "Unnamed",
+          "Culper Ring",
+          "New York Spy Ring",
+          "Washington&#039;s Spies"
+        ],
+        "answer": "Culper Ring",
+        "explanation": ""
+      },
+      {
+        "question": "The ontological argument for the proof of God&#039;s existence is first attributed to whom?",
+        "options": [
+          "Aristotle",
+          "Immanuel Kant",
+          "Anselm of Canterbury",
+          "Ren&eacute; Descartes"
+        ],
+        "answer": "Anselm of Canterbury",
+        "explanation": ""
+      },
+      {
+        "question": "When did Spanish Peninsular War start?",
+        "options": [
+          "1808",
+          "1810",
+          "1806",
+          "1809"
+        ],
+        "answer": "1808",
+        "explanation": ""
+      }
+    ]
+  },
+  "Technology": {
+    "easy": [
+      {
+        "question": "The programming language &quot;Python&quot; is based off a modified version of &quot;JavaScript&quot;.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "The Electron computer was released in Britain during 1983 for the home computing market, by which company? ",
+        "options": [
+          "Sinclair Research",
+          "Amstrad PLC",
+          "Commodore Business Machines",
+          "Acorn Computers"
+        ],
+        "answer": "Acorn Computers",
+        "explanation": ""
+      },
+      {
+        "question": "Which computer language would you associate Django framework with?",
+        "options": [
+          "Python",
+          "Java",
+          "C++",
+          "C#"
+        ],
+        "answer": "Python",
+        "explanation": ""
+      },
+      {
+        "question": "How many kilobytes in one gigabyte (in decimal)?",
+        "options": [
+          "1000",
+          "1000000",
+          "1024",
+          "1048576"
+        ],
+        "answer": "1000000",
+        "explanation": ""
+      },
+      {
+        "question": "What language does Node.js use?",
+        "options": [
+          "Java",
+          "Joomla Source Code",
+          "Java Source",
+          "JavaScript"
+        ],
+        "answer": "JavaScript",
+        "explanation": ""
+      },
+      {
+        "question": "What is the most preferred image format used for logos in the Wikimedia database?",
+        "options": [
+          ".svg",
+          ".gif",
+          ".jpeg",
+          ".png"
+        ],
+        "answer": ".svg",
+        "explanation": ""
+      },
+      {
+        "question": "What is the domain name for the country Tuvalu?",
+        "options": [
+          ".tu",
+          ".tt",
+          ".tl",
+          ".tv"
+        ],
+        "answer": ".tv",
+        "explanation": ""
+      },
+      {
+        "question": "What does the &quot;MP&quot; stand for in MP3?",
+        "options": [
+          "Music Player",
+          "Multi Pass",
+          "Micro Point",
+          "Moving Picture"
+        ],
+        "answer": "Moving Picture",
+        "explanation": ""
+      },
+      {
+        "question": "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
+        "options": [
+          "Private",
+          "Final",
+          "Public",
+          "Static"
+        ],
+        "answer": "Final",
+        "explanation": ""
+      },
+      {
+        "question": "Which programming language shares its name with an island in Indonesia?",
+        "options": [
+          "Java",
+          "Jakarta",
+          "C",
+          "Python"
+        ],
+        "answer": "Java",
+        "explanation": ""
+      }
+    ],
+    "medium": [
+      {
+        "question": "In CSS, which of these values CANNOT be used with the &quot;position&quot; property?",
+        "options": [
+          "static",
+          "absolute",
+          "relative",
+          "center"
+        ],
+        "answer": "center",
+        "explanation": ""
+      },
+      {
+        "question": "How many bits make up the significand portion of a single precision floating point number?",
+        "options": [
+          "15",
+          "53",
+          "8",
+          "23"
+        ],
+        "answer": "23",
+        "explanation": ""
+      },
+      {
+        "question": "What does the term GPU stand for?",
+        "options": [
+          "Graphical Proprietary Unit",
+          "Graphics Processing Unit",
+          "Graphite Producing Unit",
+          "Gaming Processor Unit"
+        ],
+        "answer": "Graphics Processing Unit",
+        "explanation": ""
+      },
+      {
+        "question": "A Boolean value of &quot;0&quot; represents which of these words?",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "Nvidia&#039;s headquarters are based in which Silicon Valley city?",
+        "options": [
+          "Cupertino",
+          "Mountain View",
+          "Palo Alto",
+          "Santa Clara"
+        ],
+        "answer": "Santa Clara",
+        "explanation": ""
+      },
+      {
+        "question": "What is the main CPU is the Sega Mega Drive / Sega Genesis?",
+        "options": [
+          "Zilog Z80",
+          "Motorola 68000",
+          "Yamaha YM2612",
+          "Intel 8088"
+        ],
+        "answer": "Motorola 68000",
+        "explanation": ""
+      },
+      {
+        "question": "The very first recorded computer &quot;bug&quot; was a moth found inside a Harvard Mark II computer.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "Generally, which component of a computer draws the most power?",
+        "options": [
+          "Video Card",
+          "Processor",
+          "Hard Drive",
+          "Power Supply"
+        ],
+        "answer": "Video Card",
+        "explanation": ""
+      },
+      {
+        "question": "All of the following programs are classified as raster graphics editors EXCEPT:",
+        "options": [
+          "Adobe Photoshop",
+          "GIMP",
+          "Inkscape",
+          "Paint.NET"
+        ],
+        "answer": "Inkscape",
+        "explanation": ""
+      },
+      {
+        "question": "&quot;Windows NT&quot; is a monolithic kernel.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      }
+    ],
+    "hard": [
+      {
+        "question": "Which of the following computer components can be built using only NAND gates?",
+        "options": [
+          "ALU",
+          "Register",
+          "RAM",
+          "CPU"
+        ],
+        "answer": "ALU",
+        "explanation": ""
+      },
+      {
+        "question": "DHCP stands for Dynamic Host Configuration Port.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "Which of these names was an actual codename for a cancelled Microsoft project?",
+        "options": [
+          "Saturn",
+          "Enceladus",
+          "Neptune",
+          "Pollux"
+        ],
+        "answer": "Neptune",
+        "explanation": ""
+      },
+      {
+        "question": "Who invented the &quot;Spanning Tree Protocol&quot;?",
+        "options": [
+          "Paul Vixie",
+          "Radia Perlman",
+          "Michael Roberts",
+          "Vint Cerf"
+        ],
+        "answer": "Radia Perlman",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following is the oldest of these computers by release date?",
+        "options": [
+          "Apple 3",
+          "ZX Spectrum",
+          "Commodore 64",
+          "TRS-80"
+        ],
+        "answer": "TRS-80",
+        "explanation": ""
+      },
+      {
+        "question": "The acronym &quot;RIP&quot; stands for which of these?",
+        "options": [
+          "Runtime Instance Processes",
+          "Regular Interval Processes",
+          "Routine Inspection Protocol",
+          "Routing Information Protocol"
+        ],
+        "answer": "Routing Information Protocol",
+        "explanation": ""
+      },
+      {
+        "question": "What major programming language does Unreal Engine 4 use?",
+        "options": [
+          "Assembly",
+          "C++",
+          "C#",
+          "ECMAScript"
+        ],
+        "answer": "C++",
+        "explanation": ""
+      },
+      {
+        "question": "Who is the original author of the realtime physics engine called PhysX?",
+        "options": [
+          "NovodeX",
+          "Nvidia",
+          "Ageia",
+          "AMD"
+        ],
+        "answer": "NovodeX",
+        "explanation": ""
+      },
+      {
+        "question": "Released in 2001, the first edition of Apple&#039;s Mac OS X operating system (version 10.0) was given what animal code name?",
+        "options": [
+          "Cheetah",
+          "Leopard",
+          "Tiger",
+          "Puma"
+        ],
+        "answer": "Cheetah",
+        "explanation": ""
+      },
+      {
+        "question": "The Harvard architecture for micro-controllers added which additional bus?",
+        "options": [
+          "Instruction",
+          "Control",
+          "Data",
+          "Address"
+        ],
+        "answer": "Instruction",
+        "explanation": ""
+      }
+    ]
+  },
+  "Sports": {
+    "easy": [
+      {
+        "question": "Who won the premier league title in the 2015-2016 season following a fairy tale run?",
+        "options": [
+          "Tottenham Hotspur",
+          "Watford",
+          "Stoke City",
+          "Leicester City"
+        ],
+        "answer": "Leicester City",
+        "explanation": ""
+      },
+      {
+        "question": "In golf, what name is given to a hole score of two under par?",
+        "options": [
+          "Bogey",
+          "Albatross",
+          "Eagle",
+          "Birdie"
+        ],
+        "answer": "Eagle",
+        "explanation": ""
+      },
+      {
+        "question": "Which country hosted the 2018 FIFA World Cup?",
+        "options": [
+          "Germany",
+          "United States",
+          "Saudi Arabia",
+          "Russia"
+        ],
+        "answer": "Russia",
+        "explanation": ""
+      },
+      {
+        "question": "Which boxer was banned for taking a bite out of Evander Holyfield&#039;s ear in 1997?",
+        "options": [
+          "Mike Tyson",
+          "Lennox Lewis",
+          "Evander Holyfield",
+          "Roy Jones Jr."
+        ],
+        "answer": "Mike Tyson",
+        "explanation": ""
+      },
+      {
+        "question": "What team won the 2016 MLS Cup?",
+        "options": [
+          "Colorado Rapids",
+          "Toronto FC",
+          "Montreal Impact",
+          "Seattle Sounders"
+        ],
+        "answer": "Seattle Sounders",
+        "explanation": ""
+      },
+      {
+        "question": "Which country hosted the 2022 FIFA World Cup?",
+        "options": [
+          "USA",
+          "Japan",
+          "Switzerland",
+          "Qatar"
+        ],
+        "answer": "Qatar",
+        "explanation": ""
+      },
+      {
+        "question": "Which team won the 2015-16 English Premier League?",
+        "options": [
+          "Cheslea",
+          "Liverpool",
+          "Leicester City",
+          "Manchester United"
+        ],
+        "answer": "Leicester City",
+        "explanation": ""
+      },
+      {
+        "question": "In what sport is a &quot;shuttlecock&quot; used?",
+        "options": [
+          "Cricket",
+          "Rugby",
+          "Badminton",
+          "Table Tennis"
+        ],
+        "answer": "Badminton",
+        "explanation": ""
+      },
+      {
+        "question": "Shaquille O&rsquo;Neal has only made one three pointer in his career.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "What is the name of Manchester United&#039;s home stadium?",
+        "options": [
+          "Anfield",
+          "Old Trafford",
+          "St James Park",
+          "City of Manchester Stadium"
+        ],
+        "answer": "Old Trafford",
+        "explanation": ""
+      }
+    ],
+    "medium": [
+      {
+        "question": "Which country is hosting the 2022 FIFA World Cup?",
+        "options": [
+          "Uganda",
+          "Vietnam",
+          "Qatar",
+          "Bolivia"
+        ],
+        "answer": "Qatar",
+        "explanation": ""
+      },
+      {
+        "question": "Tennis was once known as Racquetball.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "False",
+        "explanation": ""
+      },
+      {
+        "question": "Wilt Chamberlain scored his infamous 100-point-game against the New York Knicks in 1962.",
+        "options": [
+          "False",
+          "True"
+        ],
+        "answer": "True",
+        "explanation": ""
+      },
+      {
+        "question": "Which basketball team has attended the most NBA grand finals?",
+        "options": [
+          "Philadelphia 76ers",
+          "Golden State Warriors",
+          "Los Angeles Lakers",
+          "Boston Celtics"
+        ],
+        "answer": "Los Angeles Lakers",
+        "explanation": ""
+      },
+      {
+        "question": "Which of the following pitchers was named National League Rookie of the Year for the 2013 season?",
+        "options": [
+          "Matt Harvey",
+          "Jose Fernandez",
+          "Shelby Miller",
+          "Jacob deGrom"
+        ],
+        "answer": "Jose Fernandez",
+        "explanation": ""
+      },
+      {
+        "question": "How many scoring zones are there on a conventional dart board?",
+        "options": [
+          "102",
+          "42",
+          "62",
+          "82"
+        ],
+        "answer": "82",
+        "explanation": ""
+      },
+      {
+        "question": "Why was The Green Monster at Fenway Park was originally built?",
+        "options": [
+          "To display advertisements.",
+          "To provide extra seating.",
+          "To make getting home runs harder.",
+          "To prevent viewing games from outside the park."
+        ],
+        "answer": "To prevent viewing games from outside the park.",
+        "explanation": ""
+      },
+      {
+        "question": "In what sport does Fanny Chmelar compete for Germany?",
+        "options": [
+          "Swimming",
+          "Showjumping",
+          "Skiing",
+          "Gymnastics"
+        ],
+        "answer": "Skiing",
+        "explanation": ""
+      },
+      {
+        "question": "Which NBA player won Most Valuable Player for the 1999-2000 season?",
+        "options": [
+          "Paul Pierce",
+          "Shaquille O&#039;Neal",
+          "Kobe Bryant",
+          "Allen Iverson"
+        ],
+        "answer": "Shaquille O&#039;Neal",
+        "explanation": ""
+      },
+      {
+        "question": "Who was the topscorer for England national football team?",
+        "options": [
+          "David Beckham",
+          "Steven Gerrard",
+          "Michael Owen",
+          "Wayne Rooney"
+        ],
+        "answer": "Wayne Rooney",
+        "explanation": ""
+      }
+    ],
+    "hard": [
+      {
+        "question": "What tool lends it&#039;s name to a last-stone advantage in an end in Curling?",
+        "options": [
+          "Screwdriver",
+          "Drill",
+          "Wrench",
+          "Hammer"
+        ],
+        "answer": "Hammer",
+        "explanation": ""
+      },
+      {
+        "question": "In Canadian football, scoring a rouge is worth how many points?",
+        "options": [
+          "1",
+          "4",
+          "3",
+          "2"
+        ],
+        "answer": "1",
+        "explanation": ""
+      },
+      {
+        "question": "The Mazda 787B won the 24 Hours of Le Mans in what year?",
+        "options": [
+          "1990",
+          "1987",
+          "1991",
+          "2000"
+        ],
+        "answer": "1991",
+        "explanation": ""
+      },
+      {
+        "question": "Prior to 2018, which car company is the only Japanese company which won the 24 Hours of Le Mans?",
+        "options": [
+          "Mazda",
+          "Subaru",
+          "Toyota",
+          "Nissan"
+        ],
+        "answer": "Mazda",
+        "explanation": ""
+      },
+      {
+        "question": "Which year was the third Super Bowl held?",
+        "options": [
+          "1968",
+          "1969",
+          "1971",
+          "1970"
+        ],
+        "answer": "1969",
+        "explanation": ""
+      },
+      {
+        "question": "Which female player won the gold medal of table tennis singles in 2016 Olympics Games?",
+        "options": [
+          "Song KIM (North Korea)",
+          "DING Ning (China)",
+          "Ai FUKUHARA (Japan)",
+          "LI Xiaoxia (China)"
+        ],
+        "answer": "DING Ning (China)",
+        "explanation": ""
+      },
+      {
+        "question": "Which Italian footballer told Neuer where he&#039;s putting his shot and dragging it wide, during the match Italy-Germany, UEFA EURO 2016?",
+        "options": [
+          "Pelle",
+          "Insigne",
+          "Barzagli",
+          "Giaccherini"
+        ],
+        "answer": "Pelle",
+        "explanation": ""
+      },
+      {
+        "question": "What is the full name of the footballer &quot;Cristiano Ronaldo&quot;?",
+        "options": [
+          "Cristiano Ronaldo los Santos Diego",
+          "Cristiano Armando Diego Ronaldo",
+          "Cristiano Luis Armando Ronaldo",
+          "Cristiano Ronaldo dos Santos Aveiro"
+        ],
+        "answer": "Cristiano Ronaldo dos Santos Aveiro",
+        "explanation": ""
+      },
+      {
+        "question": "The AHL affiliate team of the Boston Bruins is named what?",
+        "options": [
+          "Providence Bruins",
+          "Hartford Bruins",
+          "Cambridge Bruins",
+          "New Haven Bruins"
+        ],
+        "answer": "Providence Bruins",
+        "explanation": ""
+      },
+      {
+        "question": "With which doubles partner did John McEnroe have most success?",
+        "options": [
+          "Peter Fleming",
+          "Mary Carillo",
+          "Michael Stich",
+          "Mark Woodforde"
+        ],
+        "answer": "Peter Fleming",
+        "explanation": ""
+      }
+    ]
+  }
+}
