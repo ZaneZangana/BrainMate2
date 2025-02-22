@@ -23,7 +23,6 @@ async function loadQuestions() {
         }
         questionsData = await response.json();
         console.log('Questions loaded from questions.json');
-        // Build overall category list for later use if needed.
         for (const category in questionsData) {
             for (const difficulty in questionsData[category]) {
                 categories[category].push(...questionsData[category][difficulty]);
@@ -48,27 +47,25 @@ function showMainMenu() {
 function showButtons() {
     const buttons = document.getElementById('buttons');
     buttons.innerHTML = `
-        <div class="text-center py-2 cursor-pointer text-white rounded-lg bg-blue-500 shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-xl mb-2" onclick="showTrivia()">Trivia Game</div>
-        <div class="text-center py-2 cursor-pointer text-white rounded-lg bg-blue-500 shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-xl" onclick="showScroll()">Scroll Section</div>
+        <div class="btn btn-blue mb-2" onclick="showTrivia()">Trivia Game</div>
+        <div class="btn btn-blue" onclick="showScroll()">Scroll Section</div>
     `;
 }
 
 async function showTrivia() {
-    // Load questions if not already loaded
     if (Object.keys(categories).every(category => categories[category].length > 0)) {
         showCategories();
     } else {
         await loadQuestions();
         showCategories();
     }
-    updateTriviaNav();
 }
 
 function updateTriviaNav() {
     const buttons = document.getElementById('buttons');
     buttons.innerHTML = `
-        <div class="text-center py-2 cursor-pointer bg-red-500 text-white rounded-lg shadow-lg hover:bg-red-600" onclick="showCategories()">Back to Trivia Menu</div>
-        <div class="text-center py-2 cursor-pointer bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600" onclick="window.location.href='index.html'">Main Menu</div>
+        <div class="btn btn-red" onclick="showCategories()">Back to Trivia Menu</div>
+        <div class="btn btn-blue" onclick="window.location.href='index.html'">Main Menu</div>
     `;
 }
 
@@ -76,54 +73,20 @@ function showCategories() {
     const content = document.getElementById('content');
     content.innerHTML = `
         <div class="text-center">
-            <h2 class="text-2xl font-bold mb-4">Select a Quiz Category</h2>
-            <button class="w-full py-2 mb-2 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600" onclick="startQuiz('Science')">Science</button>
-            <button class="w-full py-2 mb-2 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600" onclick="startQuiz('History')">History</button>
-            <button class="w-full py-2 mb-2 bg-purple-500 text-white rounded-lg shadow-lg hover:bg-purple-600" onclick="startQuiz('Technology')">Technology</button>
-            <button class="w-full py-2 mb-2 bg-yellow-500 text-white rounded-lg shadow-lg hover:bg-yellow-600" onclick="startQuiz('Sports')">Sports</button>
+            <h2 class="text-2xl font-bold mb-4">Choose a Topic</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="btn btn-blue" onclick="startQuiz('Science')">Science</button>
+                <button class="btn btn-green" onclick="startQuiz('History')">History</button>
+                <button class="btn btn-purple" onclick="startQuiz('Technology')">Technology</button>
+                <button class="btn btn-yellow" onclick="startQuiz('Sports')">Sports</button>
+            </div>
+        </div>
+        <div id="stats-button-container" class="fixed bottom-32 left-0 right-0">
+            <button class="btn btn-red w-full" onclick="showStatsPopup()">Stats</button>
         </div>
     `;
-    showXPLevel();
 }
 
-function showXPLevel() {
-    let xpLevel = document.getElementById('xp-level');
-    if (!xpLevel) {
-        xpLevel = document.createElement('div');
-        xpLevel.id = 'xp-level';
-        xpLevel.className = 'absolute top-0 right-0 m-4 p-2 bg-gray-800 text-white rounded-lg shadow-lg';
-        document.body.appendChild(xpLevel);
-    }
-    let globalXp = 0;
-    let xpDetails = "";
-    Object.keys(userProgress).forEach(category => {
-        let xp = userProgress[category].xp;
-        let level = userProgress[category].level;
-        globalXp += xp;
-        xpDetails += `<div>${category}: XP: ${xp} | Level: ${level}</div>`;
-    });
-
-    const rankNames = [
-        "Rookie",
-        "Apprentice",
-        "Prodigy",
-        "Expert",
-        "Master",
-        "Grandmaster",
-        "Legend",
-        "Mythic",
-        "Immortal",
-        "Transcendent"
-    ];
-    let rankIndex = Math.floor(globalXp / 90);
-    if (rankIndex >= rankNames.length) {
-        rankIndex = rankNames.length - 1;
-    }
-
-    xpLevel.innerHTML = `<div>Global XP: ${globalXp} \\(Rank: ${rankNames[rankIndex]}\\)</div>${xpDetails}`;
-}
-
-// Helper: weighted random selection without replacement.
 function pickWeightedRandom(weightedQuestions, count) {
     let selected = [];
     let available = [...weightedQuestions];
@@ -143,7 +106,6 @@ function pickWeightedRandom(weightedQuestions, count) {
     return selected;
 }
 
-// Helper: build weighted question list.
 function prioritizeQuestions(category) {
     const level = userProgress[category].level;
     let difficulty;
@@ -154,17 +116,14 @@ function prioritizeQuestions(category) {
     } else {
         difficulty = "hard";
     }
-    // Get unique questions for the difficulty that have not been completed.
     const difficultyQuestions = ((questionsData[category] && questionsData[category][difficulty]) || [])
         .filter(q => !userProgress[category].completed.includes(q.question));
 
-    // Count mistakes for weighting.
     const mistakeCount = {};
     userProgress[category].mistakes.forEach(m => {
         mistakeCount[m.question] = (mistakeCount[m.question] || 0) + 2;
     });
 
-    // Build weighted list.
     const weightedQuestions = difficultyQuestions.map(q => {
         return { question: q, weight: 1 + (mistakeCount[q.question] || 0) };
     });
@@ -199,46 +158,60 @@ function showCurrentQuizQuestion() {
             <p class="mb-4">Question ${quiz.index + 1} of ${quiz.questions.length}: ${currentQuestion.question}</p>
             ${currentQuestion.options.map(option =>
         `<div class="mb-2">
-                    <button class="w-full py-2 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600" onclick="checkAnswer(window.currentQuiz.category, \`${option}\`)">${option}</button>
+                    <button class="btn btn-blue w-full" onclick="checkAnswer(window.currentQuiz.category, \`${option}\`)">${option}</button>
                  </div>`
     ).join('')}
         </div>
     `;
-    showXPLevel();
 }
 
 function checkAnswer(category, selectedOption) {
     const questionData = window.currentQuestion;
-    const content = document.getElementById('content');
     if (!questionData) {
         console.error("Question not found in currentQuestion");
         alert("An error occurred. Please try again.");
         return;
     }
-    if (selectedOption === questionData.answer) {
+
+    const isCorrect = selectedOption === questionData.answer;
+    const popup = document.createElement('div');
+    popup.className = 'popup fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center';
+    popup.innerHTML = `
+        <div class="popup-content bg-gray-800 p-6 rounded-lg shadow-lg text-white w-3/4 max-w-lg">
+            <p class="mb-4">${isCorrect ? 'Correct!' : 'Incorrect!'}</p>
+            <p class="mb-4">${questionData.explanation}</p>
+            <button class="btn btn-navy mt-4" onclick="nextQuestion()">Next Question</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+
+    if (isCorrect) {
         userProgress[category].correct++;
         userProgress[category].xp += 10;
-        // Remove any instance of this question from mistakes.
         userProgress[category].mistakes = userProgress[category].mistakes.filter(q => q.question !== questionData.question);
         if (!userProgress[category].completed.includes(questionData.question)) {
             userProgress[category].completed.push(questionData.question);
         }
-        content.innerHTML = `<p>Correct! ${questionData.explanation}</p>`;
     } else {
         userProgress[category].incorrect++;
-        // Add one instance to mistakes so the weight increases.
         if (!userProgress[category].mistakes.find(q => q.question === questionData.question)) {
             userProgress[category].mistakes.push(questionData);
         }
-        content.innerHTML = `<p>Incorrect! ${questionData.explanation}</p>`;
     }
     updateLevel(category);
-    setTimeout(() => {
-        window.currentQuiz.index++;
-        showCurrentQuizQuestion();
-    }, 2000);
 }
 
+function nextQuestion() {
+    const popup = document.querySelector('.popup');
+    if (popup) {
+        document.body.removeChild(popup);
+    }
+    window.currentQuiz.index++;
+    if (window.currentQuiz.index < window.currentQuiz.questions.length) {
+        window.currentQuestion = window.currentQuiz.questions[window.currentQuiz.index];
+    }
+    showCurrentQuizQuestion();
+}
 function updateLevel(category) {
     const xp = userProgress[category].xp;
     userProgress[category].level = Math.floor(xp / 100) + 1;
@@ -268,6 +241,10 @@ function showPerformanceSummary(category) {
       <p class="mb-4">Level: ${progress.level}</p>
       <h3 class="text-lg font-semibold mb-2">Mistakes to Review</h3>
       ${mistakesHTML}
+      <div class="mt-4">
+        <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
+        <button class="btn btn-green" onclick="startQuiz('${category}')">Retry Topic</button>
+      </div>
     </div>
   `;
 }
@@ -280,6 +257,58 @@ function showScroll() {
             <p>This section can be filled with scrolling content.</p>
         </div>
     `;
+}
+
+function showStatsPopup() {
+    const popup = document.createElement('div');
+    popup.id = 'stats-popup';
+    popup.className = 'fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center';
+    popup.innerHTML = `
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
+            <div id="stats-content"></div>
+            <button class="btn btn-red mt-4" onclick="closeStatsPopup()">Close</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+    updateStatsContent();
+}
+
+function updateStatsContent() {
+    const statsContent = document.getElementById('stats-content');
+    let globalXp = 0;
+    let xpDetails = "";
+    Object.keys(userProgress).forEach(category => {
+        let xp = userProgress[category].xp;
+        let level = userProgress[category].level;
+        globalXp += xp;
+        xpDetails += `<div>${category}: XP: ${xp} | Level: ${level}</div>`;
+    });
+
+    const rankNames = [
+        "Rookie",
+        "Apprentice",
+        "Prodigy",
+        "Expert",
+        "Master",
+        "Grandmaster",
+        "Legend",
+        "Mythic",
+        "Immortal",
+        "Transcendent"
+    ];
+    let rankIndex = Math.floor(globalXp / 90);
+    if (rankIndex >= rankNames.length) {
+        rankIndex = rankNames.length - 1;
+    }
+
+    statsContent.innerHTML = `<div>Global XP: ${globalXp} (Rank: ${rankNames[rankIndex]})</div>${xpDetails}`;
+}
+
+function closeStatsPopup() {
+    const popup = document.getElementById('stats-popup');
+    if (popup) {
+        document.body.removeChild(popup);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -36,6 +36,35 @@
 </head>
 <body class="bg-gray-100">
     <div class="video-container" id="video-list"></div>
+    <div class="flex-grow w-full">{}</div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex justify-around items-center shadow-lg">
+        <button onclick="navigateTo('home')" class="flex flex-col items-center">
+            <span class="text-xl">🏠</span>
+            <span class="text-xs">Home</span>
+        </button>
+        <button onclick="navigateTo('scroll')" class="flex flex-col items-center">
+            <span class="text-xl">📜</span>
+            <span class="text-xs">Scroll</span>
+        </button>
+        <button onclick="navigateTo('trivia')" class="flex flex-col items-center">
+            <span class="text-xl">❓</span>
+            <span class="text-xs">Trivia</span>
+        </button>
+    </nav>
+
+    <script>
+        function navigateTo(section) {
+            if (section === 'scroll') {
+                window.location.href = 'tiktok.html';
+            } else if (section === 'trivia') {
+                window.location.href = '../app.html';
+            } else {
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
 
     <script src="tiktok.js"></script>
 </body>
