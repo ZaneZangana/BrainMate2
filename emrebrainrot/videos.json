@@ -1,0 +1,29 @@
+[
+    {
+        "id": "video1",
+        "title": "The Theory of Relativity",
+        "url": "assets/video1.mp4",
+        "topics": {
+            "science": 0.9,
+            "physics": 1.0,
+            "history": 0.3
+        },
+        "suggested_questions": [
+            "What is the main idea behind Einstein's Theory of Relativity?",
+            "How does time dilation work in simple terms?"
+        ]
+    },
+    {
+        "id": "video2",
+        "title": "The History of the Roman Empire",
+        "url": "assets/video2.mp4",
+        "topics": {
+            "history": 1.0,
+            "politics": 0.7
+        },
+        "suggested_questions": [
+            "What were the key reasons for the fall of the Roman Empire?",
+            "How did Julius Caesar impact the Roman political structure?"
+        ]
+    }
+]
