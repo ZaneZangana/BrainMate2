@@ -2,7 +2,7 @@
     {
         "id": "video1",
         "title": "The Beauty of the Fibonacci Sequence",
-        "url": "assets/compressed_fibonacci.mp4",
+        "url": "assets/fibonacci_1.mp4",
         "topics": {
             "science": 0.9,
             "physics": 1.0,
@@ -16,7 +16,7 @@
     {
         "id": "video2",
         "title": "The Origins of Algebra: From Babylonians to Today",
-        "url": "assets/compressed_algebra.mp4",
+        "url": "assets/algebra_1.mp4",
         "topics": {
             "math": 1.0,
             "history": 0.8
@@ -29,7 +29,7 @@
     {
         "id": "video3",
         "title": "The Fall of the Byzantine Empire",
-        "url": "assets/compressed_1453.mp4",
+        "url": "assets/1453_1.mp4",
         "topics": {
             "history": 1.0,
             "politics": 0.7
@@ -42,7 +42,7 @@
     {
         "id": "video4",
         "title": "The Dark Ages: Were They Really Dark?",
-        "url": "assets/compressed_darkage.mp4",
+        "url": "assets/darkage_1.mp4",
         "topics": {
             "history": 1.0,
             "society": 0.6
@@ -55,7 +55,7 @@
     {
         "id": "video5",
         "title": "The Science Behind Black Holes",
-        "url": "assets/compressed_black_hole.mp4",
+        "url": "assets/black_hole_1.mp4",
         "topics": {
             "science": 1.0,
             "astronomy": 0.9
@@ -68,7 +68,7 @@
     {
         "id": "video6",
         "title": "Quantum Mechanics: Why Reality is Stranger Than Fiction",
-        "url": "assets/compressed_quantum.mp4",
+        "url": "assets/quantum_1.mp4",
         "topics": {
             "science": 1.0,
             "physics": 0.9
@@ -81,7 +81,7 @@
     {
         "id": "video7",
         "title": "How Vaccines Work: The Science Behind Immunity",
-        "url": "assets/compressed_vaccine.mp4",
+        "url": "assets/vaccine_1.mp4",
         "topics": {
             "medicine": 1.0,
             "science": 0.8
@@ -94,7 +94,7 @@
     {
         "id": "video8",
         "title": "The History of Surgery: From Ancient Times to Modern Medicine",
-        "url": "assets/compressed_surgery.mp4",
+        "url": "assets/surgery_1.mp4",
         "topics": {
             "medicine": 1.0,
             "history": 0.7
@@ -107,7 +107,7 @@
     {
         "id": "video9",
         "title": "How Inflation Affects Your Daily Life",
-        "url": "assets/compressed_inflation.mp4",
+        "url": "assets/inflation_1.mp4",
         "topics": {
             "economy": 1.0,
             "finance": 0.8
@@ -120,7 +120,7 @@
     {
         "id": "video10",
         "title": "Cryptocurrency Explained: Is It the Future of Money?",
-        "url": "assets/compressed_crypto.mp4",
+        "url": "assets/crypto_1.mp4",
         "topics": {
             "economy": 1.0,
             "technology": 0.7
