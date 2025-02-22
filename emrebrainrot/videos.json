@@ -1,8 +1,8 @@
 [
     {
         "id": "video1",
-        "title": "The Theory of Relativity",
-        "url": "assets/video1.mp4",
+        "title": "The Beauty of the Fibonacci Sequence",
+        "url": "assets/compressed_fibonacci.mp4",
         "topics": {
             "science": 0.9,
             "physics": 1.0,
@@ -15,15 +15,119 @@
     },
     {
         "id": "video2",
-        "title": "The History of the Roman Empire",
-        "url": "assets/video2.mp4",
+        "title": "The Origins of Algebra: From Babylonians to Today",
+        "url": "assets/compressed_algebra.mp4",
+        "topics": {
+            "math": 1.0,
+            "history": 0.8
+        },
+        "suggested_questions": [
+            "Who were the pioneers of algebra and why is it important?",
+            "How did ancient civilizations contribute to modern algebra?"
+        ]
+    },
+    {
+        "id": "video3",
+        "title": "The Fall of the Byzantine Empire",
+        "url": "assets/compressed_1453.mp4",
         "topics": {
             "history": 1.0,
             "politics": 0.7
         },
         "suggested_questions": [
-            "What were the key reasons for the fall of the Roman Empire?",
-            "How did Julius Caesar impact the Roman political structure?"
+            "What were the key events that led to the fall of the Byzantine Empire?",
+            "How did the Ottoman Empire rise after the fall of Byzantium?"
+        ]
+    },
+    {
+        "id": "video4",
+        "title": "The Dark Ages: Were They Really Dark?",
+        "url": "assets/compressed_darkage.mp4",
+        "topics": {
+            "history": 1.0,
+            "society": 0.6
+        },
+        "suggested_questions": [
+            "Why is the medieval period often called the Dark Ages?",
+            "What were some of the major advancements made during this time?"
+        ]
+    },
+    {
+        "id": "video5",
+        "title": "The Science Behind Black Holes",
+        "url": "assets/compressed_black_hole.mp4",
+        "topics": {
+            "science": 1.0,
+            "astronomy": 0.9
+        },
+        "suggested_questions": [
+            "How do black holes form and what makes them so powerful?",
+            "What would happen if you fell into a black hole?"
+        ]
+    },
+    {
+        "id": "video6",
+        "title": "Quantum Mechanics: Why Reality is Stranger Than Fiction",
+        "url": "assets/compressed_quantum.mp4",
+        "topics": {
+            "science": 1.0,
+            "physics": 0.9
+        },
+        "suggested_questions": [
+            "What is quantum superposition?",
+            "How does quantum entanglement challenge our understanding of reality?"
+        ]
+    },
+    {
+        "id": "video7",
+        "title": "How Vaccines Work: The Science Behind Immunity",
+        "url": "assets/compressed_vaccine.mp4",
+        "topics": {
+            "medicine": 1.0,
+            "science": 0.8
+        },
+        "suggested_questions": [
+            "What happens in the body after receiving a vaccine?",
+            "How do vaccines help prevent the spread of diseases?"
+        ]
+    },
+    {
+        "id": "video8",
+        "title": "The History of Surgery: From Ancient Times to Modern Medicine",
+        "url": "assets/compressed_surgery.mp4",
+        "topics": {
+            "medicine": 1.0,
+            "history": 0.7
+        },
+        "suggested_questions": [
+            "What were some of the earliest forms of surgery?",
+            "How has surgical technology evolved over time?"
+        ]
+    },
+    {
+        "id": "video9",
+        "title": "How Inflation Affects Your Daily Life",
+        "url": "assets/compressed_inflation.mp4",
+        "topics": {
+            "economy": 1.0,
+            "finance": 0.8
+        },
+        "suggested_questions": [
+            "What causes inflation and how does it impact purchasing power?",
+            "What are some historical examples of hyperinflation?"
+        ]
+    },
+    {
+        "id": "video10",
+        "title": "Cryptocurrency Explained: Is It the Future of Money?",
+        "url": "assets/compressed_crypto.mp4",
+        "topics": {
+            "economy": 1.0,
+            "technology": 0.7
+        },
+        "suggested_questions": [
+            "How does cryptocurrency differ from traditional money?",
+            "What are the risks and benefits of using cryptocurrencies?"
         ]
     }
 ]
