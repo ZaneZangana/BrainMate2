@@ -167,7 +167,7 @@ function prioritizeQuestions(category, allTopics = false) {
         .filter(q => !userProgress[category].completed.includes(q.question))
         .map(q => ({
             question: q,
-            weight: 1 + (mistakeCount[q.question] || 0) * 0.5
+            weight: 1 + (mistakeCount[q.question] || 0)
         }));
 
     console.log(`Weighted Questions for ${category}:`, weightedQuestions);
@@ -269,9 +269,14 @@ function showCurrentQuizQuestion() {
     const currentQuestion = quiz.questions[quiz.index];
     window.currentQuestion = currentQuestion;
     const content = document.getElementById("content");
+
+    // Check if the question was previously missed
+    const wasMissed = userProgress[quiz.category].mistakes.some(mistake => mistake.question === currentQuestion.question);
+
     content.innerHTML = `
         <div class="text-center pb-24">
             <h2 class="text-2xl font-bold mb-4">${window.currentQuiz.category} Quiz</h2>
+            ${wasMissed ? '<p class="text-red-500 font-bold mb-2">Previously Missed Question</p>' : ''}
             <p class="mb-4">Question ${quiz.index + 1} of ${quiz.questions.length}: ${currentQuestion.question}</p>
             ${currentQuestion.options.map(option =>
         `<div class="mb-2">
