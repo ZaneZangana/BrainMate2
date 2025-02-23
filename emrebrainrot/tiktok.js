@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const videoContainer = document.getElementById("video-list");
 
+    // Basic iOS check
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
     // Load video data from JSON file
     let videos = await fetch('videos.json').then(res => res.json());
 
@@ -46,11 +49,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         normalizeMinorTopics();
         return videos.sort((a, b) => {
             const scoreA = Object.keys(a.topics).reduce(
-                (sum, topic) => sum + (userData.likedTopics[topic] || 0) * a.topics[topic] + (userData.minorTopics[topic] || 0) * a.topics[topic],
+                (sum, topic) => sum +
+                    (userData.likedTopics[topic] || 0) * a.topics[topic] +
+                    (userData.minorTopics[topic] || 0) * a.topics[topic],
                 0
             );
             const scoreB = Object.keys(b.topics).reduce(
-                (sum, topic) => sum + (userData.likedTopics[topic] || 0) * b.topics[topic] + (userData.minorTopics[topic] || 0) * b.topics[topic],
+                (sum, topic) => sum +
+                    (userData.likedTopics[topic] || 0) * b.topics[topic] +
+                    (userData.minorTopics[topic] || 0) * b.topics[topic],
                 0
             );
             return scoreB - scoreA; // Sort by highest relevance
@@ -68,18 +75,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         videoWrapper.innerHTML = `
             <video src="${video.url}" class="w-full h-full object-cover"></video>
             <div class="controls absolute right-2 top-1/2 -translate-y-1/2 flex flex-col space-y-2">
-                <button class="like-button" data-id="${video.id}">❤️ Like</button>
-                <button class="skip-button" data-id="${video.id}">❌ Skip</button>
+                <button class="like-button" data-id="${video.id}">❤️</button>
+                <button class="skip-button" data-id="${video.id}">❌</button>
             </div>
         `;
 
+        const videoElem = videoWrapper.querySelector("video");
+
+        // If it's iOS, make sure the video is muted & inline-allowed for autoplay
+        if (isIOS) {
+            videoElem.setAttribute("muted", "true");
+            videoElem.setAttribute("playsinline", "true");
+            videoElem.muted = true;
+
+            // Create an Unmute button
+            const unmuteBtn = document.createElement("button");
+            unmuteBtn.textContent = "🔊 Unmute";
+            unmuteBtn.classList.add(
+                "absolute", "top-2", "left-2", "bg-gray-700", "text-white", 
+                "px-2", "py-1", "rounded", "z-10"
+            );
+
+            // When tapped, unmute and play (if paused)
+            unmuteBtn.addEventListener("click", () => {
+                videoElem.muted = false;
+                if (videoElem.paused) {
+                    videoElem.play().catch(err => console.log(err));
+                }
+                unmuteBtn.remove();
+            });
+
+            videoWrapper.appendChild(unmuteBtn);
+        }
+
         videoContainer.appendChild(videoWrapper);
 
-        // Click to toggle play/pause in the middle
-        const videoElem = videoWrapper.querySelector("video");
+        // Click to toggle play/pause on the video itself
         videoElem.addEventListener("click", () => {
             if (videoElem.paused) {
-                videoElem.play();
+                videoElem.play().catch(err => console.log(err));
             } else {
                 videoElem.pause();
             }
@@ -91,8 +125,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             startTime = Date.now();
         });
 
-        videoWrapper.querySelector(".like-button").addEventListener("click", () => likeVideo(video.id, startTime));
-        videoWrapper.querySelector(".skip-button").addEventListener("click", () => skipVideo(video.id, startTime));
+        // Like/Skip Buttons
+        videoWrapper.querySelector(".like-button")
+            .addEventListener("click", () => likeVideo(video.id, startTime));
+        videoWrapper.querySelector(".skip-button")
+            .addEventListener("click", () => skipVideo(video.id, startTime));
     });
 
     // Autoplay/pause videos when in/out of view
@@ -100,7 +137,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         entries.forEach(entry => {
             const vid = entry.target;
             if (entry.isIntersecting) {
-                vid.play();
+                // Attempt to play (muted if iOS or no user interaction)
+                vid.play().catch(err => console.log(err));
             } else {
                 vid.pause();
             }
@@ -130,7 +168,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Update minor topics
-        const dominantTopic = Object.keys(video.topics).reduce((a, b) => video.topics[a] > video.topics[b] ? a : b);
+        const dominantTopic = Object.keys(video.topics)
+            .reduce((a, b) => video.topics[a] > video.topics[b] ? a : b);
         Object.keys(video.topics).forEach(topic => {
             if (topic !== dominantTopic) {
                 userData.minorTopics[topic] =
