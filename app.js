@@ -65,7 +65,7 @@ function updateTriviaNav() {
     const buttons = document.getElementById('buttons');
     buttons.innerHTML = `
         <div class="btn btn-red" onclick="showCategories()">Back to Trivia Menu</div>
-        <div class="btn btn-blue" onclick="window.location.href='index.html'">Main Menu</div>
+        <div class="btn btn-blue" onclick="window.location.href='menu.html'">Main Menu</div>
     `;
 }
 
@@ -75,10 +75,10 @@ function showCategories() {
         <div class="text-center">
             <h2 class="text-2xl font-bold mb-4">Choose a Topic</h2>
             <div class="grid grid-cols-2 gap-4">
-                <button class="btn btn-blue" onclick="startQuiz('Science')">Science</button>
-                <button class="btn btn-green" onclick="startQuiz('History')">History</button>
-                <button class="btn btn-purple" onclick="startQuiz('Technology')">Technology</button>
-                <button class="btn btn-yellow" onclick="startQuiz('Sports')">Sports</button>
+                <button class="btn btn-blue" onclick="showTopicMenu('Science')">Science</button>
+                <button class="btn btn-green" onclick="showTopicMenu('History')">History</button>
+                <button class="btn btn-purple" onclick="showTopicMenu('Technology')">Technology</button>
+                <button class="btn btn-yellow" onclick="showTopicMenu('Sports')">Sports</button>
             </div>
         </div>
         <div id="stats-button-container" class="fixed bottom-32 left-0 right-0">
@@ -139,7 +139,12 @@ function startQuiz(category) {
     }
     const questionCount = Math.min(3, weightedQuestions.length);
     const selectedQuestions = pickWeightedRandom(weightedQuestions, questionCount);
-    window.currentQuiz = { questions: selectedQuestions, index: 0, category: category };
+    window.currentQuiz = {
+        questions: selectedQuestions,
+        index: 0,
+        category: category,
+        currentMistakes: [] // Add this to track mistakes in current quiz
+    };
     showCurrentQuizQuestion();
 }
 
@@ -180,7 +185,7 @@ function checkAnswer(category, selectedOption) {
         <div class="popup-content bg-gray-800 p-6 rounded-lg shadow-lg text-white w-3/4 max-w-lg">
             <p class="mb-4">${isCorrect ? 'Correct!' : 'Incorrect!'}</p>
             <p class="mb-4">${questionData.explanation}</p>
-            <button class="btn btn-navy mt-4" onclick="nextQuestion()">Next Question</button>
+            <button class="btn btn-red mt-4" onclick="nextQuestion()">Next Question</button>
         </div>
     `;
     document.body.appendChild(popup);
@@ -188,15 +193,17 @@ function checkAnswer(category, selectedOption) {
     if (isCorrect) {
         userProgress[category].correct++;
         userProgress[category].xp += 10;
-        userProgress[category].mistakes = userProgress[category].mistakes.filter(q => q.question !== questionData.question);
         if (!userProgress[category].completed.includes(questionData.question)) {
             userProgress[category].completed.push(questionData.question);
         }
     } else {
         userProgress[category].incorrect++;
-        if (!userProgress[category].mistakes.find(q => q.question === questionData.question)) {
-            userProgress[category].mistakes.push(questionData);
-        }
+        // Add mistake to the mistakes array without filtering
+        userProgress[category].mistakes.push({
+            question: questionData.question,
+            timestamp: new Date().getTime()
+        });
+        window.currentQuiz.currentMistakes.push(questionData);
     }
     updateLevel(category);
 }
@@ -219,34 +226,34 @@ function updateLevel(category) {
 
 function showPerformanceSummary(category) {
     const progress = userProgress[category];
-    const uniqueMistakes = Array.from(new Map(progress.mistakes.map(item => [item.question, item])).values());
+    const currentMistakes = window.currentQuiz.currentMistakes || [];
     const content = document.getElementById('content');
 
-    let mistakesHTML = uniqueMistakes.length > 0
+    let mistakesHTML = currentMistakes.length > 0
         ? `<ul class="list-disc ml-5 text-left">` +
-        uniqueMistakes.map(mistake =>
+        currentMistakes.map(mistake =>
             `<li class="mb-2">
-          <span class="font-semibold text-red-500">Question:</span> ${mistake.question}<br/>
-        </li>`
+                <span class="font-semibold text-red-500">Question:</span> ${mistake.question}<br/>
+            </li>`
         ).join('') +
         `</ul>`
-        : `<p class="text-green-600">No mistakes, well done!</p>`;
+        : `<p class="text-green-600">No mistakes in this quiz, well done!</p>`;
 
     content.innerHTML = `
     <div class="text-center p-4">
-      <h2 class="text-xl font-bold mb-4">${category} Performance Summary</h2>
-      <p class="mb-1">Correct Answers: ${progress.correct}</p>
-      <p class="mb-1">Incorrect Answers: ${progress.incorrect}</p>
-      <p class="mb-1">XP: ${progress.xp}</p>
-      <p class="mb-4">Level: ${progress.level}</p>
-      <h3 class="text-lg font-semibold mb-2">Mistakes to Review</h3>
-      ${mistakesHTML}
-      <div class="mt-4">
-        <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
-        <button class="btn btn-green" onclick="startQuiz('${category}')">Retry Topic</button>
-      </div>
+        <h2 class="text-xl font-bold mb-4">${category} Performance Summary</h2>
+        <p class="mb-1">Correct Answers: ${progress.correct}</p>
+        <p class="mb-1">Incorrect Answers: ${progress.incorrect}</p>
+        <p class="mb-1">XP: ${progress.xp}</p>
+        <p class="mb-1">Level: ${progress.level}</p>
+        <h3 class="text-lg font-semibold mb-2">Mistakes in This Quiz</h3>
+        ${mistakesHTML}
+        <div class="mt-4">
+            <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
+            <button class="btn btn-green" onclick="startQuiz('${category}')">Retry Topic</button>
+        </div>
     </div>
-  `;
+    `;
 }
 
 function showScroll() {
@@ -309,6 +316,69 @@ function closeStatsPopup() {
     if (popup) {
         document.body.removeChild(popup);
     }
+}
+function showTopicMenu(category) {
+    const progress = userProgress[category];
+    const uniqueMistakes = Array.from(new Map(progress.mistakes.map(item => [item.question, item])).values());
+    const mistakeCounts = {};
+    progress.mistakes.forEach(mistake => {
+        mistakeCounts[mistake.question] = (mistakeCounts[mistake.question] || 0) + 1;
+    });
+
+    const content = document.getElementById('content');
+    content.innerHTML = `
+        <div class="text-center p-4">
+            <h2 class="text-2xl font-bold mb-4">${category}</h2>
+
+            <div class="bg-gray-700 rounded-lg p-4 mb-6">
+                <h3 class="text-lg font-semibold mb-2">Topic Statistics</h3>
+                <p class="mb-1">Level: ${progress.level}</p>
+                <p class="mb-1">XP: ${progress.xp}</p>
+                <p class="mb-1">Total Correct: ${progress.correct}</p>
+                <p class="mb-1">Total Incorrect: ${progress.incorrect}</p>
+                <p class="mb-1">Questions Completed: ${progress.completed.length}</p>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button class="btn btn-green" onclick="startQuiz('${category}')">Start Quiz</button>
+                <button class="btn btn-yellow" onclick="showMistakesPopup('${category}')">View Missed Questions</button>
+                <button class="btn btn-red" onclick="showCategories()">Back to Topics</button>
+            </div>
+        </div>
+    `;
+}
+
+function showMistakesPopup(category) {
+    const progress = userProgress[category];
+    const mistakeCounts = {};
+
+    // Count all instances of each mistake
+    progress.mistakes.forEach(mistake => {
+        mistakeCounts[mistake.question] = (mistakeCounts[mistake.question] || 0) + 1;
+    });
+
+    const popup = document.createElement('div');
+    popup.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+
+    let mistakesHTML = Object.keys(mistakeCounts).length > 0
+        ? `<ul class="list-disc ml-5 text-left max-h-60 overflow-y-auto">
+            ${Object.entries(mistakeCounts).map(([question, count]) =>
+            `<li class="mb-2">
+                    <span class="font-semibold">Missed ${count} times:</span><br>
+                    ${question}
+                </li>`
+        ).join('')}
+           </ul>`
+        : '<p class="text-green-500">No questions missed yet!</p>';
+
+    popup.innerHTML = `
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
+            <h3 class="text-xl font-bold mb-4">Missed Questions - ${category}</h3>
+            ${mistakesHTML}
+            <button class="btn btn-red mt-4" onclick="this.parentElement.parentElement.remove()">Close</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
