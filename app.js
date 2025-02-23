@@ -270,17 +270,31 @@ function showCurrentQuizQuestion() {
     window.currentQuestion = currentQuestion;
     const content = document.getElementById("content");
 
-    // Check if the question was previously missed
-    const wasMissed = userProgress[quiz.category].mistakes.some(mistake => mistake.question === currentQuestion.question);
+    // Determine the appropriate userProgress key.
+    const progressCategory = (quiz.category === "All Topics" && currentQuestion.category)
+        ? currentQuestion.category
+        : quiz.category;
+
+    // Check if the question was previously missed.
+    const wasMissed = userProgress[progressCategory] && userProgress[progressCategory].mistakes.some(
+        mistake => mistake.question === currentQuestion.question
+    );
+
+    // If the quiz is All Topics, display the question's actual category.
+    let categoryText = "";
+    if (quiz.category === "All Topics" && currentQuestion.category) {
+        categoryText = `<p class="text-sm text-gray-500 mb-2">Category: ${currentQuestion.category}</p>`;
+    }
 
     content.innerHTML = `
         <div class="text-center pb-24">
-            <h2 class="text-2xl font-bold mb-4">${window.currentQuiz.category} Quiz</h2>
+            <h2 class="text-2xl font-bold mb-4">${quiz.category} Quiz</h2>
+            ${categoryText}
             ${wasMissed ? '<p class="text-red-500 font-bold mb-2">Previously Missed Question</p>' : ''}
             <p class="mb-4">Question ${quiz.index + 1} of ${quiz.questions.length}: ${currentQuestion.question}</p>
             ${currentQuestion.options.map(option =>
         `<div class="mb-2">
-                    <button class="btn btn-blue w-full" onclick="checkAnswer(window.currentQuiz.category, \`${option}\`)">${option}</button>
+                    <button class="btn btn-blue w-full" onclick="checkAnswer('${quiz.category}', \`${option}\`)">${option}</button>
                 </div>`
     ).join('')}
             <button class="btn btn-red mt-4 w-full sm:w-auto" onclick="showCategories()">Return to Topic Menu</button>
