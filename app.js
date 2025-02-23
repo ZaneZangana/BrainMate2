@@ -65,7 +65,7 @@ function updateTriviaNav() {
     const buttons = document.getElementById('buttons');
     buttons.innerHTML = `
         <div class="btn btn-red" onclick="showCategories()">Back to Trivia Menu</div>
-        <div class="btn btn-blue" onclick="window.location.href='menu.html'">Main Menu</div>
+        <div class="btn btn-blue" onclick="window.location.href='index.html'">Main Menu</div>
     `;
 }
 

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         likedTopics: {},
         watched: {},
         skipped: [],
-        watchedVideos: []  // Ensure watchedVideos is always initialized
+        watchedVideos: []
     };
 
     // Function to update user data in localStorage
@@ -30,39 +30,75 @@ document.addEventListener('DOMContentLoaded', async () => {
     function personalizeVideos() {
         normalizeLikedTopics();
         return videos.sort((a, b) => {
-            const scoreA = Object.keys(a.topics).reduce((sum, topic) =>
-                sum + (userData.likedTopics[topic] || 0) * a.topics[topic], 0);
-            const scoreB = Object.keys(b.topics).reduce((sum, topic) =>
-                sum + (userData.likedTopics[topic] || 0) * b.topics[topic], 0);
+            const scoreA = Object.keys(a.topics).reduce(
+                (sum, topic) => sum + (userData.likedTopics[topic] || 0) * a.topics[topic],
+                0
+            );
+            const scoreB = Object.keys(b.topics).reduce(
+                (sum, topic) => sum + (userData.likedTopics[topic] || 0) * b.topics[topic],
+                0
+            );
             return scoreB - scoreA; // Sort by highest relevance
         });
     }
 
-    videos = personalizeVideos(); // Sort before rendering
+    // Apply personalization
+    videos = personalizeVideos();
 
     // Render videos dynamically
     videos.forEach(video => {
         const videoWrapper = document.createElement("div");
-        videoWrapper.classList.add("video", "bg-white", "flex", "items-center", "justify-center");
+        videoWrapper.classList.add("video", "relative");
 
         videoWrapper.innerHTML = `
-            <video src="${video.url}" controls class="w-full h-full object-cover"></video>
-            <div class="controls">
-                <button class="like-button" data-id="${video.id}">❤️ Like</button>
-                <button class="skip-button" data-id="${video.id}">❌ Skip</button>
+            <div class="video relative">
+            <video src="${video.url}" class="w-full h-full object-cover"></video>
+            <div class="controls absolute top-4 right-4 flex flex-col space-y-2 
+                        pointer-events-none z-10">
+                <button class="like-button pointer-events-auto bg-transparent border-none px-2 py-1"
+                        data-id="${video.id}" title="Like">❤️</button>
+                <button class="skip-button pointer-events-auto bg-transparent border-none px-2 py-1"
+                        data-id="${video.id}" title="Skip">❌</button>
+            </div>
             </div>
         `;
 
         videoContainer.appendChild(videoWrapper);
 
+        // Click to toggle play/pause in the middle
+        const videoElem = videoWrapper.querySelector("video");
+        videoElem.addEventListener("click", () => {
+            if (videoElem.paused) {
+                videoElem.play();
+            } else {
+                videoElem.pause();
+            }
+        });
+
         // Track watch time
         let startTime = 0;
-        videoWrapper.querySelector("video").addEventListener("play", () => {
+        videoElem.addEventListener("play", () => {
             startTime = Date.now();
         });
 
         videoWrapper.querySelector(".like-button").addEventListener("click", () => likeVideo(video.id, startTime));
         videoWrapper.querySelector(".skip-button").addEventListener("click", () => skipVideo(video.id, startTime));
+    });
+
+    // Autoplay/pause videos when in/out of view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const vid = entry.target;
+            if (entry.isIntersecting) {
+                vid.play();
+            } else {
+                vid.pause();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll("video").forEach(videoElem => {
+        observer.observe(videoElem);
     });
 
     // Like a video
@@ -74,16 +110,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const maxDuration = 60; // Assume a video max duration of 60s
         const watchPercentage = Math.min(1, watchDuration / maxDuration);
 
-        // If watched less than 50%, increase interest more.
+        // If watched less than 50%, increase interest more
         const interestFactor = watchPercentage < 0.5 ? 1.5 : 1.0;
 
         // Update liked topics
         Object.keys(video.topics).forEach(topic => {
-            userData.likedTopics[topic] = (userData.likedTopics[topic] || 0) + (video.topics[topic] * interestFactor);
+            userData.likedTopics[topic] =
+                (userData.likedTopics[topic] || 0) + (video.topics[topic] * interestFactor);
         });
 
         userData.watched[videoId] = true;
-
         if (!userData.watchedVideos.includes(videoId)) {
             userData.watchedVideos.push(videoId);
         }
@@ -106,12 +142,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const watchPercentage = Math.min(1, watchDuration / maxDuration);
 
         // Find dominant topic (highest weight)
-        let dominantTopic = Object.keys(video.topics).reduce((a, b) =>
-            video.topics[a] > video.topics[b] ? a : b);
+        let dominantTopic = Object.keys(video.topics).reduce(
+            (a, b) => (video.topics[a] > video.topics[b] ? a : b)
+        );
 
-        // Reduce interest based on watch time (higher penalty if watched for longer)
+        // Reduce interest based on watch time
         const penaltyFactor = watchPercentage > 0.7 ? 2.0 : 1.0;
-        userData.likedTopics[dominantTopic] = Math.max(0, (userData.likedTopics[dominantTopic] || 0) - (video.topics[dominantTopic] * penaltyFactor));
+        userData.likedTopics[dominantTopic] = Math.max(
+            0,
+            (userData.likedTopics[dominantTopic] || 0) - (video.topics[dominantTopic] * penaltyFactor)
+        );
 
         userData.skipped.push(videoId);
         saveUserData();
