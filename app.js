@@ -127,12 +127,11 @@ function calculateTopicWeights() {
 
     const totalCorrectWithBase = totalCorrect + numCategories;
 
-    // Compute weights and ensure each topic's weight is between 0.15 and 0.5.
+    // Compute weights and ensure a minimum weight of 0.15 for each topic.
     for (const category in userProgress) {
         const correctAnswers = userProgress[category].correct;
         let weight = (correctAnswers + 1) / totalCorrectWithBase;
-        weight = Math.max(weight, 0.15);
-        weight = Math.min(weight, 0.5);  // Ensure the weight is no more than 0.5
+        weight = Math.max(weight, 0.15);  // Ensure the weight is at least 0.15
         weights[category] = weight;
     }
 
@@ -176,28 +175,53 @@ function prioritizeQuestions(category, allTopics = false) {
 }
 
 
+let isFirstAllTopicsQuiz = true;
+
 function startAllTopicsQuiz() {
-    const topicWeights = calculateTopicWeights();
-    const weightedQuestions = [];
-
-    for (const category in categories) {
-        const categoryQuestions = prioritizeQuestions(category, true);
-        const weight = topicWeights[category] || 0;
-        categoryQuestions.forEach(q => {
-            // Attach the category to each question
-            const questionWithCat = { ...q.question, category: category };
-            weightedQuestions.push({ question: questionWithCat, weight: q.weight * weight });
-        });
+    if (isFirstAllTopicsQuiz) {
+        // For the very first quiz: fixed 2 questions per category.
+        const selectedQuestions = [];
+        for (const category in categories) {
+            const categoryQuestions = prioritizeQuestions(category, true);
+            const count = Math.min(2, categoryQuestions.length);
+            // Apply a constant weight (e.g., 1) since question weight is irrelevant here.
+            const weightedCategoryQuestions = categoryQuestions.map(q => {
+                return { question: { ...q.question, category: category }, weight: 1 };
+            });
+            const selected = pickWeightedRandom(weightedCategoryQuestions, count);
+            selectedQuestions.push(...selected);
+        }
+        window.currentQuiz = {
+            questions: selectedQuestions,
+            index: 0,
+            category: 'All Topics',
+            currentMistakes: []
+        };
+        // Mark first all topics quiz as complete.
+        isFirstAllTopicsQuiz = false;
+        showCurrentQuizQuestion();
+    } else {
+        // Subsequent iterations: total quiz length is fixed (8 questions)
+        // and each question is weighted by its topic weight.
+        const topicWeights = calculateTopicWeights();
+        const weightedQuestions = [];
+        for (const category in categories) {
+            const categoryQuestions = prioritizeQuestions(category, true);
+            const topicWeight = topicWeights[category] || 0;
+            categoryQuestions.forEach(q => {
+                const questionWithCat = { ...q.question, category: category };
+                weightedQuestions.push({ question: questionWithCat, weight: topicWeight });
+            });
+        }
+        const selectedQuestions = pickWeightedRandom(weightedQuestions, 8);
+        window.currentQuiz = {
+            questions: selectedQuestions,
+            index: 0,
+            category: 'All Topics',
+            currentMistakes: []
+        };
+        showCurrentQuizQuestion();
     }
-
-    const selectedQuestions = pickWeightedRandom(weightedQuestions, 8);
-    window.currentQuiz = {
-        questions: selectedQuestions,
-        index: 0,
-        category: 'All Topics',
-        currentMistakes: []
-    };
-    showCurrentQuizQuestion();
 }
 
 function pickWeightedRandom(weightedQuestions, count) {
