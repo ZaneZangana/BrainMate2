@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const videoContainer = document.getElementById("video-list");
 
     // Basic iOS check
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    //const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     // Load video data from JSON file
     let videos = await fetch('videos.json').then(res => res.json());
@@ -82,31 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const videoElem = videoWrapper.querySelector("video");
 
-        // If it's iOS, make sure the video is muted & inline-allowed for autoplay
-        if (isIOS) {
-            videoElem.setAttribute("muted", "true");
-            videoElem.setAttribute("playsinline", "true");
-            videoElem.muted = true;
 
-            // Create an Unmute button
-            const unmuteBtn = document.createElement("button");
-            unmuteBtn.textContent = "🔊 Unmute";
-            unmuteBtn.classList.add(
-                "absolute", "top-2", "left-2", "bg-gray-700", "text-white", 
-                "px-2", "py-1", "rounded", "z-10"
-            );
-
-            // When tapped, unmute and play (if paused)
-            unmuteBtn.addEventListener("click", () => {
-                videoElem.muted = false;
-                if (videoElem.paused) {
-                    videoElem.play().catch(err => console.log(err));
-                }
-                unmuteBtn.remove();
-            });
-
-            videoWrapper.appendChild(unmuteBtn);
-        }
 
         videoContainer.appendChild(videoWrapper);
 
