@@ -270,14 +270,15 @@ function showCurrentQuizQuestion() {
     window.currentQuestion = currentQuestion;
     const content = document.getElementById("content");
     content.innerHTML = `
-        <div class="text-center">
+        <div class="text-center pb-24">
             <h2 class="text-2xl font-bold mb-4">${window.currentQuiz.category} Quiz</h2>
             <p class="mb-4">Question ${quiz.index + 1} of ${quiz.questions.length}: ${currentQuestion.question}</p>
             ${currentQuestion.options.map(option =>
         `<div class="mb-2">
                     <button class="btn btn-blue w-full" onclick="checkAnswer(window.currentQuiz.category, \`${option}\`)">${option}</button>
-                 </div>`
+                </div>`
     ).join('')}
+            <button class="btn btn-red mt-4 w-full sm:w-auto" onclick="showCategories()">Return to Topic Menu</button>
         </div>
     `;
 }
@@ -297,7 +298,7 @@ function checkAnswer(category, selectedOption) {
         <div class="popup-content bg-gray-800 p-6 rounded-lg shadow-lg text-white w-3/4 max-w-lg">
             <p class="mb-4">${isCorrect ? 'Correct!' : 'Incorrect!'}</p>
             <p class="mb-4">${questionData.explanation}</p>
-            <button class="btn btn-red mt-4" onclick="nextQuestion()">Next Question</button>
+            <button class="btn btn-green mt-4" onclick="nextQuestion()">Next Question</button>
         </div>
     `;
     document.body.appendChild(popup);
