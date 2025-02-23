@@ -70,20 +70,47 @@ function updateTriviaNav() {
 }
 
 function showCategories() {
+    let globalXp = 0;
+    Object.values(userProgress).forEach(data => {
+        globalXp += data.xp;
+    });
+
+    const rankNames = [
+        "Rookie", "Apprentice", "Prodigy", "Expert", "Master",
+        "Grandmaster", "Legend", "Mythic", "Immortal", "Transcendent"
+    ];
+
+    let rankIndex = Math.floor(globalXp / 90);
+    if (rankIndex >= rankNames.length) {
+        rankIndex = rankNames.length - 1;
+    }
+
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div class="text-center">
-            <h2 class="text-2xl font-bold mb-4">Choose a Topic</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <button class="btn btn-blue" onclick="showTopicMenu('Science')">Science</button>
-                <button class="btn btn-green" onclick="showTopicMenu('History')">History</button>
-                <button class="btn btn-purple" onclick="showTopicMenu('Technology')">Technology</button>
-                <button class="btn btn-yellow" onclick="showTopicMenu('Sports')">Sports</button>
-            </div>
+<div class="text-center">
+    <h2 class="text-2xl font-bold mb-4">Choose a Topic</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+        <button class="btn btn-blue" onclick="showTopicMenu('Science')">Science</button>
+        <button class="btn btn-green" onclick="showTopicMenu('History')">History</button>
+        <button class="btn btn-purple" onclick="showTopicMenu('Technology')">Technology</button>
+        <button class="btn btn-yellow" onclick="showTopicMenu('Sports')">Sports</button>
+    </div>
+
+    <div class="fixed bottom-20 left-4 right-4 bg-gray-800 p-3 rounded-lg text-sm">
+        <h3 class="font-bold mb-1">Global Stats</h3>
+        <p class="mb-1">Total XP: ${globalXp}</p>
+        <p class="mb-2">Rank: ${rankNames[rankIndex]}</p>
+
+        <div class="grid grid-cols-2 gap-1 text-xs">
+            ${Object.entries(userProgress).map(([category, data]) => `
+                <div class="bg-gray-700 p-1 rounded">
+                    ${category}: ${data.xp} XP (Lvl ${data.level})
+                </div>
+            `).join('')}
         </div>
-        <div id="stats-button-container" class="fixed bottom-32 left-0 right-0">
-            <button class="btn btn-red w-full" onclick="showStatsPopup()">Stats</button>
-        </div>
+    </div>
+</div>
     `;
 }
 
@@ -143,7 +170,7 @@ function startQuiz(category) {
         questions: selectedQuestions,
         index: 0,
         category: category,
-        currentMistakes: [] // Add this to track mistakes in current quiz
+        currentMistakes: []
     };
     showCurrentQuizQuestion();
 }
@@ -198,7 +225,6 @@ function checkAnswer(category, selectedOption) {
         }
     } else {
         userProgress[category].incorrect++;
-        // Add mistake to the mistakes array without filtering
         userProgress[category].mistakes.push({
             question: questionData.question,
             timestamp: new Date().getTime()
@@ -219,6 +245,7 @@ function nextQuestion() {
     }
     showCurrentQuizQuestion();
 }
+
 function updateLevel(category) {
     const xp = userProgress[category].xp;
     userProgress[category].level = Math.floor(xp / 100) + 1;
@@ -266,60 +293,8 @@ function showScroll() {
     `;
 }
 
-function showStatsPopup() {
-    const popup = document.createElement('div');
-    popup.id = 'stats-popup';
-    popup.className = 'fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center';
-    popup.innerHTML = `
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
-            <div id="stats-content"></div>
-            <button class="btn btn-red mt-4" onclick="closeStatsPopup()">Close</button>
-        </div>
-    `;
-    document.body.appendChild(popup);
-    updateStatsContent();
-}
-
-function updateStatsContent() {
-    const statsContent = document.getElementById('stats-content');
-    let globalXp = 0;
-    let xpDetails = "";
-    Object.keys(userProgress).forEach(category => {
-        let xp = userProgress[category].xp;
-        let level = userProgress[category].level;
-        globalXp += xp;
-        xpDetails += `<div>${category}: XP: ${xp} | Level: ${level}</div>`;
-    });
-
-    const rankNames = [
-        "Rookie",
-        "Apprentice",
-        "Prodigy",
-        "Expert",
-        "Master",
-        "Grandmaster",
-        "Legend",
-        "Mythic",
-        "Immortal",
-        "Transcendent"
-    ];
-    let rankIndex = Math.floor(globalXp / 90);
-    if (rankIndex >= rankNames.length) {
-        rankIndex = rankNames.length - 1;
-    }
-
-    statsContent.innerHTML = `<div>Global XP: ${globalXp} (Rank: ${rankNames[rankIndex]})</div>${xpDetails}`;
-}
-
-function closeStatsPopup() {
-    const popup = document.getElementById('stats-popup');
-    if (popup) {
-        document.body.removeChild(popup);
-    }
-}
 function showTopicMenu(category) {
     const progress = userProgress[category];
-    const uniqueMistakes = Array.from(new Map(progress.mistakes.map(item => [item.question, item])).values());
     const mistakeCounts = {};
     progress.mistakes.forEach(mistake => {
         mistakeCounts[mistake.question] = (mistakeCounts[mistake.question] || 0) + 1;
@@ -351,8 +326,6 @@ function showTopicMenu(category) {
 function showMistakesPopup(category) {
     const progress = userProgress[category];
     const mistakeCounts = {};
-
-    // Count all instances of each mistake
     progress.mistakes.forEach(mistake => {
         mistakeCounts[mistake.question] = (mistakeCounts[mistake.question] || 0) + 1;
     });
