@@ -47,8 +47,8 @@ function showMainMenu() {
 function showButtons() {
     const buttons = document.getElementById('buttons');
     buttons.innerHTML = `
-        <div class="btn btn-blue mb-2" onclick="showTrivia()">Trivia Game</div>
-        <div class="btn btn-blue" onclick="showScroll()">Scroll Section</div>
+    <button class="btn bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 w-full"
+                        onclick="startAllTopicsQuiz()">
     `;
 }
 
@@ -95,6 +95,8 @@ function showCategories() {
         <button class="btn btn-green" onclick="showTopicMenu('History')">History</button>
         <button class="btn btn-purple" onclick="showTopicMenu('Technology')">Technology</button>
         <button class="btn btn-yellow" onclick="showTopicMenu('Sports')">Sports</button>
+        <button class="btn bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 w-full col-span-2"
+        onclick="startAllTopicsQuiz()">All Topics</button>
     </div>
 
     <div class="fixed bottom-20 left-4 right-4 bg-gray-800 p-3 rounded-lg text-sm">
@@ -114,6 +116,90 @@ function showCategories() {
     `;
 }
 
+function calculateTopicWeights() {
+    const weights = {};
+    const numCategories = Object.keys(userProgress).length;
+    let totalCorrect = 0;
+
+    for (const category in userProgress) {
+        totalCorrect += userProgress[category].correct;
+    }
+
+    const totalCorrectWithBase = totalCorrect + numCategories;
+
+    // Compute weights and ensure each topic's weight is between 0.15 and 0.5.
+    for (const category in userProgress) {
+        const correctAnswers = userProgress[category].correct;
+        let weight = (correctAnswers + 1) / totalCorrectWithBase;
+        weight = Math.max(weight, 0.15);
+        weight = Math.min(weight, 0.5);  // Ensure the weight is no more than 0.5
+        weights[category] = weight;
+    }
+
+    console.log('Topic Weights:', weights);
+    return weights;
+}
+
+function prioritizeQuestions(category, allTopics = false) {
+    const level = userProgress[category].level;
+    let difficulty;
+    if (!allTopics) {
+        if (level === 1) {
+            difficulty = "easy";
+        } else if (level === 2) {
+            difficulty = "medium";
+        } else {
+            difficulty = "hard";
+        }
+    }
+
+    const baseQuestions = allTopics
+        ? Object.values(questionsData[category]).flat()
+        : ((questionsData[category] && questionsData[category][difficulty]) || []);
+
+    // Reduce the mistake penalty by using a lower multiplier.
+    const mistakeCount = {};
+    userProgress[category].mistakes.forEach(m => {
+        mistakeCount[m.question] = (mistakeCount[m.question] || 0) + 1;
+    });
+
+    // Apply a milder increase factor: each mistake adds only 0.5 to the base weight.
+    const weightedQuestions = baseQuestions
+        .filter(q => !userProgress[category].completed.includes(q.question))
+        .map(q => ({
+            question: q,
+            weight: 1 + (mistakeCount[q.question] || 0) * 0.5
+        }));
+
+    console.log(`Weighted Questions for ${category}:`, weightedQuestions);
+    return weightedQuestions;
+}
+
+
+function startAllTopicsQuiz() {
+    const topicWeights = calculateTopicWeights();
+    const weightedQuestions = [];
+
+    for (const category in categories) {
+        const categoryQuestions = prioritizeQuestions(category, true);
+        const weight = topicWeights[category] || 0;
+        categoryQuestions.forEach(q => {
+            // Attach the category to each question
+            const questionWithCat = { ...q.question, category: category };
+            weightedQuestions.push({ question: questionWithCat, weight: q.weight * weight });
+        });
+    }
+
+    const selectedQuestions = pickWeightedRandom(weightedQuestions, 8);
+    window.currentQuiz = {
+        questions: selectedQuestions,
+        index: 0,
+        category: 'All Topics',
+        currentMistakes: []
+    };
+    showCurrentQuizQuestion();
+}
+
 function pickWeightedRandom(weightedQuestions, count) {
     let selected = [];
     let available = [...weightedQuestions];
@@ -131,31 +217,6 @@ function pickWeightedRandom(weightedQuestions, count) {
         }
     }
     return selected;
-}
-
-function prioritizeQuestions(category) {
-    const level = userProgress[category].level;
-    let difficulty;
-    if (level === 1) {
-        difficulty = "easy";
-    } else if (level === 2) {
-        difficulty = "medium";
-    } else {
-        difficulty = "hard";
-    }
-    const difficultyQuestions = ((questionsData[category] && questionsData[category][difficulty]) || [])
-        .filter(q => !userProgress[category].completed.includes(q.question));
-
-    const mistakeCount = {};
-    userProgress[category].mistakes.forEach(m => {
-        mistakeCount[m.question] = (mistakeCount[m.question] || 0) + 2;
-    });
-
-    const weightedQuestions = difficultyQuestions.map(q => {
-        return { question: q, weight: 1 + (mistakeCount[q.question] || 0) };
-    });
-
-    return weightedQuestions;
 }
 
 function startQuiz(category) {
@@ -217,6 +278,23 @@ function checkAnswer(category, selectedOption) {
     `;
     document.body.appendChild(popup);
 
+    if (category === 'All Topics') {
+        const currentQuestion = window.currentQuiz.questions[window.currentQuiz.index];
+        if (currentQuestion && currentQuestion.category) {
+            category = currentQuestion.category;
+        } else {
+            console.error("Category not found for current question in All Topics quiz");
+            alert("An error occurred. Please try again.");
+            return;
+        }
+    }
+
+    if (!category || !userProgress[category]) {
+        console.error("Invalid category:", category);
+        alert("An error occurred. Please try again.");
+        return;
+    }
+
     if (isCorrect) {
         userProgress[category].correct++;
         userProgress[category].xp += 10;
@@ -252,35 +330,86 @@ function updateLevel(category) {
 }
 
 function showPerformanceSummary(category) {
-    const progress = userProgress[category];
-    const currentMistakes = window.currentQuiz.currentMistakes || [];
-    const content = document.getElementById('content');
+    if (category === 'All Topics') {
+        const progress = {
+            correct: 0,
+            incorrect: 0,
+            xp: 0,
+            level: 1
+        };
 
-    let mistakesHTML = currentMistakes.length > 0
-        ? `<ul class="list-disc ml-5 text-left">` +
-        currentMistakes.map(mistake =>
-            `<li class="mb-2">
-                <span class="font-semibold text-red-500">Question:</span> ${mistake.question}<br/>
-            </li>`
-        ).join('') +
-        `</ul>`
-        : `<p class="text-green-600">No mistakes in this quiz, well done!</p>`;
+        for (const cat in userProgress) {
+            progress.correct += userProgress[cat].correct;
+            progress.incorrect += userProgress[cat].incorrect;
+            progress.xp += userProgress[cat].xp;
+            progress.level = Math.max(progress.level, userProgress[cat].level);
+        }
 
-    content.innerHTML = `
-    <div class="text-center p-4">
-        <h2 class="text-xl font-bold mb-4">${category} Performance Summary</h2>
-        <p class="mb-1">Correct Answers: ${progress.correct}</p>
-        <p class="mb-1">Incorrect Answers: ${progress.incorrect}</p>
-        <p class="mb-1">XP: ${progress.xp}</p>
-        <p class="mb-1">Level: ${progress.level}</p>
-        <h3 class="text-lg font-semibold mb-2">Mistakes in This Quiz</h3>
-        ${mistakesHTML}
-        <div class="mt-4">
-            <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
-            <button class="btn btn-green" onclick="startQuiz('${category}')">Retry Topic</button>
+        const currentMistakes = window.currentQuiz.currentMistakes || [];
+        const content = document.getElementById('content');
+
+        let mistakesHTML = currentMistakes.length > 0
+            ? `<ul class="list-disc ml-5 text-left">` +
+            currentMistakes.map(mistake =>
+                `<li class="mb-2">
+                    <span class="font-semibold text-red-500">Question:</span> ${mistake.question}<br/>
+                </li>`
+            ).join('') +
+            `</ul>`
+            : `<p class="text-green-600">No mistakes in this quiz, well done!</p>`;
+
+        content.innerHTML = `
+        <div class="text-center p-4">
+            <h2 class="text-xl font-bold mb-4">All Topics Performance Summary</h2>
+            <p class="mb-1">Correct Answers: ${progress.correct}</p>
+            <p class="mb-1">Incorrect Answers: ${progress.incorrect}</p>
+            <p class="mb-1">XP: ${progress.xp}</p>
+            <p class="mb-1">Level: ${progress.level}</p>
+            <h3 class="text-lg font-semibold mb-2">Mistakes in This Quiz</h3>
+            ${mistakesHTML}
+            <div class="mt-4">
+                <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
+                <button class="btn btn-green" onclick="startAllTopicsQuiz()">Retry All Topics</button>
+            </div>
         </div>
-    </div>
-    `;
+        `;
+    } else {
+        if (!category || !userProgress[category]) {
+            console.error("Invalid category:", category);
+            alert("An error occurred. Please try again.");
+            return;
+        }
+
+        const progress = userProgress[category];
+        const currentMistakes = window.currentQuiz.currentMistakes || [];
+        const content = document.getElementById('content');
+
+        let mistakesHTML = currentMistakes.length > 0
+            ? `<ul class="list-disc ml-5 text-left">` +
+            currentMistakes.map(mistake =>
+                `<li class="mb-2">
+                    <span class="font-semibold text-red-500">Question:</span> ${mistake.question}<br/>
+                </li>`
+            ).join('') +
+            `</ul>`
+            : `<p class="text-green-600">No mistakes in this quiz, well done!</p>`;
+
+        content.innerHTML = `
+        <div class="text-center p-4">
+            <h2 class="text-xl font-bold mb-4">${category} Performance Summary</h2>
+            <p class="mb-1">Correct Answers: ${progress.correct}</p>
+            <p class="mb-1">Incorrect Answers: ${progress.incorrect}</p>
+            <p class="mb-1">XP: ${progress.xp}</p>
+            <p class="mb-1">Level: ${progress.level}</p>
+            <h3 class="text-lg font-semibold mb-2">Mistakes in This Quiz</h3>
+            ${mistakesHTML}
+            <div class="mt-4">
+                <button class="btn btn-blue" onclick="showCategories()">Back to Topics</button>
+                <button class="btn btn-green" onclick="startQuiz('${category}')">Retry Topic</button>
+            </div>
+        </div>
+        `;
+    }
 }
 
 function showScroll() {
