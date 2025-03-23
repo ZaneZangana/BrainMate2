@@ -12,7 +12,7 @@ console.log("🚀 tiktok2.js script started");
 
     let videos = [];
     try {
-        console.log("🔄 Fetching videos.json...");
+        console.log("🔄 Fetching videos.json..");
         const res = await fetch('videos.json');
         videos = await res.json();
         console.log("📦 Videos loaded:", videos);
